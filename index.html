@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SATYAM NISHAD BRAIN MASTER</title>
+<style>
+body {
+  margin:0;
+  font-family:Arial;
+  text-align:center;
+  background:#101b35;
+  color:white;
+}
+.container {
+  padding:25px 15px;
+}
+h1 {color:#45d6ff;}
+.card {
+  background:#20365d;
+  padding:25px;
+  border-radius:20px;
+  margin:20px auto;
+  max-width:400px;
+}
+button {
+  padding:14px 22px;
+  margin:7px;
+  border:0;
+  border-radius:12px;
+  background:#16c5ef;
+  color:#071629;
+  font-size:18px;
+  font-weight:bold;
+}
+input {
+  padding:13px;
+  width:75%;
+  font-size:20px;
+  border-radius:10px;
+  border:0;
+}
+#question {font-size:30px;}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>SATYAM NISHAD</h1>
+<h2>🧠 BRAIN MASTER</h2>
+<p>अपने दिमाग को चुनौती दो!</p>
+
+<div class="card">
+<h3 id="level">LEVEL 1</h3>
+<p id="score">स्कोर: 0</p>
+<h2 id="question">2 + 3 = ?</h2>
+<input id="answer" type="number" placeholder="उत्तर लिखो">
+<br><br>
+<button onclick="checkAnswer()">जवाब दो</button>
+<p id="message">चलो खेल शुरू करें!</p>
+<button onclick="nextQuestion()">अगला सवाल</button>
+</div>
+</div>
+
+<script>
+let questions = [
+["2 + 3",5],
+["10 - 4",6],
+["5 × 3",15],
+["20 ÷ 4",5],
+["15 + 12",27],
+["30 - 14",16],
+["8 × 7",56],
+["60 ÷ 5",12],
+["25 + 35",60],
+["100 - 45",55]
+];
+
+let current = 0;
+let score = 0;
+let level = 1;
+let answered = false;
+
+function showQuestion() {
+ document.getElementById("question").innerText =
+ questions[current][0] + " = ?";
+ document.getElementById("level").innerText =
+ "LEVEL " + level;
+ document.getElementById("answer").value = "";
+ document.getElementById("message").innerText =
+ "अपना जवाब लिखो!";
+ answered = false;
+}
+
+function checkAnswer() {
+ if(answered) return;
+ let value = document.getElementById("answer").value;
+ if(value === "") {
+  document.getElementById("message").innerText =
+  "पहले जवाब लिखो!";
+  return;
+ }
+ answered = true;
+ if(Number(value) === questions[current][1]) {
+  score += 10;
+  document.getElementById("message").innerText =
+  "🎉 सही जवाब! +10 अंक";
+ } else {
+  document.getElementById("message").innerText =
+  "गलत जवाब! सही जवाब: " + questions[current][1];
+ }
+ document.getElementById("score").innerText =
+ "स्कोर: " + score;
+}
+
+function nextQuestion() {
+ current++;
+ if(current >= questions.length) {
+  current = 0;
+  level++;
+ }
+ showQuestion();
+}
+
+showQuestion();
+</script>
+</body>
+</html>
